@@ -38,7 +38,7 @@ const useStore = create<FormStore>((set, get) => ({
     switch (field) {
       case 'email':
         if (!value) {
-          errors.email = 'Email is required';
+          errors.email = 'Нужен email';
         } else if (!/\S+@\S+\.\S+/.test(value)) {
           errors.email = 'Invalid email format';
         } else {
@@ -48,7 +48,9 @@ const useStore = create<FormStore>((set, get) => ({
 
       case 'nickname':
         if (!value) {
-          errors.nickname = 'Nickname is required';
+          errors.nickname = 'Нужен Никнейм';
+        } else if (value.length < 2) {
+            errors.password = 'Никнейм должен состоять из минимум 2 символов';
         } else {
           delete errors.nickname;
         }
@@ -56,9 +58,9 @@ const useStore = create<FormStore>((set, get) => ({
 
       case 'password':
         if (!value) {
-          errors.password = 'Password is required';
+          errors.password = 'Нужен пароль';
         } else if (value.length < 6) {
-          errors.password = 'Password must be at least 6 characters';
+          errors.password = 'Пароль должен состоять из минимум 6 символов';
         } else {
           delete errors.password;
         }
@@ -66,7 +68,7 @@ const useStore = create<FormStore>((set, get) => ({
 
       case 'confirmPassword':
         if (value !== get().password) {
-          errors.confirmPassword = 'Passwords do not match';
+          errors.confirmPassword = 'Пароль не подходит';
         } else {
           delete errors.confirmPassword;
         }
