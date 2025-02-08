@@ -1,5 +1,12 @@
 import { create } from 'zustand';
 
+interface IUser {
+    email: string;
+    nickname: string;
+    password: string;
+    confirmPassword: string;
+}
+
 interface FormStore {
   email: string;
   nickname: string;
@@ -11,7 +18,7 @@ interface FormStore {
     password?: string;
     confirmPassword?: string;
   };
-  setField: (field: keyof Omit<FormStore, 'errors' | 'setField' | 'validate' | 'validateField'>, value: string) => void;
+  setField: (field: keyof IUser, value: string) => void;
   validate: () => boolean;
   validateField: (field: keyof FormStore, value: string) => void;
 }
