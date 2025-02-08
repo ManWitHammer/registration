@@ -12,6 +12,7 @@ interface FormStore {
   nickname: string;
   password: string;
   confirmPassword: string;
+  errorMessage: string; 
   errors: {
     email?: string;
     nickname?: string;
@@ -21,6 +22,7 @@ interface FormStore {
   setField: (field: keyof IUser, value: string) => void;
   validate: () => boolean;
   validateField: (field: keyof FormStore, value: string) => void;
+  setErrorMessage: (message: string) => void
 }
 
 const useStore = create<FormStore>((set, get) => ({
@@ -28,6 +30,7 @@ const useStore = create<FormStore>((set, get) => ({
   nickname: '',
   password: '',
   confirmPassword: '',
+  errorMessage: '',
   errors: {},
 
   setField: (field, value) => set({ [field]: value }),
@@ -91,6 +94,7 @@ const useStore = create<FormStore>((set, get) => ({
 
     return Object.keys(get().errors).length === 0;
   },
+  setErrorMessage: (message) => set({ errorMessage: message }),
 }));
 
 export default useStore;

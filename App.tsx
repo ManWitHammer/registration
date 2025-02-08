@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import CustomInput from './shared/CustomInput';
+import ErrorModal from './shared/ModalError';
 import useStore from './store/store';
 
 function App() {
-  const { email, nickname, password, confirmPassword, errors, setField, validateField, validate } = useStore();
+  const { email, nickname, password, confirmPassword, errors, setField, validateField, validate, setErrorMessage } = useStore();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = () => {
     if (validate()) {
       Alert.alert('Ай тигр', 'Вы успешно зарегистрировались!');
+    } else {
+      setErrorMessage('Ошибка при регистрации');
     }
   };
 
@@ -20,6 +23,7 @@ function App() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
+      <ErrorModal />
       <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>Registration</Text>
 
